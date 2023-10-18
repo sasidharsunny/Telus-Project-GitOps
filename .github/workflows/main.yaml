@@ -16,9 +16,10 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
       working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
-      
-    - name: Build and Test with Maven
-      run: echo pwd
+
+    - name: Run JUnit Tests
+      run: mvn test
+      working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
       
 
     - name: Upload JUnit Test Results

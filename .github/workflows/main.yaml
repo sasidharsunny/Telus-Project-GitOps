@@ -83,6 +83,4 @@ jobs:
           ref: 'main'
           token: ${{ secrets.G_TOKEN }}
 
-    - name: Deployment with Argo-CD to EKS 
-      run: |
-        echo " Deployment to Argocd"
+  

@@ -1,0 +1,34 @@
+name: Publish to JFrog Artifactory
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  CI-CD-using-GitOps:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+    
+    - name: Build project with Maven
+      run: mvn clean install --file pom.xml
+
+    - name: Build and Test with Maven
+      run: mvn clean test
+      working-directory: ./Telus-app
+
+    - name: Upload JUnit Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: junit-test-results
+        path: path/to/your/project/target/surefire-reports
+    - name: Upload artifact 
+      uses: actions/upload-artifact@master
+      with:
+          name: artifacts
+          path: /home/runner/.m2/repository/org/kth/github-action-maven-tutorial/1.0-SNAPSHOT/github-action-maven-tutorial-1.0-SNAPSHOT.jar
+
+  

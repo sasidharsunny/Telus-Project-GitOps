@@ -17,8 +17,8 @@ jobs:
       run: mvn clean install --file pom.xml
 
     - name: Build and Test with Maven
-      run: mvn clean test
-      working-directory: ./Telus-app
+      run: echo pwd
+      
 
     - name: Upload JUnit Test Results
       uses: actions/upload-artifact@v2

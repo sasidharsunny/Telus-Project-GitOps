@@ -23,4 +23,11 @@ jobs:
       
     - name: 'CODE ANALYSIS WITH CHECKSTYLE'
       run: mvn checkstyle:checkstyle
+
+    - name: Upload artifact 
+      uses: actions/upload-artifact@master
+      with:
+          name: artifacts
+          path: /home/runner/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war
+
   

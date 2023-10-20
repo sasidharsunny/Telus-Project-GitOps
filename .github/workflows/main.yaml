@@ -35,15 +35,16 @@ jobs:
        path: surefire-reports # Update the path as per your project setup
 
       
-    - name: Run Checkstyle
+    - name: Generate Checkstyle Report
       run: mvn checkstyle:checkstyle
       working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
+
 
     - name: Upload Checkstyle Report
       uses: actions/upload-artifact@v2
       with:
         name: checkstyle-report
-        path: target/site/checkstyle-result.xml
+        path: target/site/checkstyle.html
 
     # - name: Cache SonarCloud packages
     #   uses: actions/cache@v3

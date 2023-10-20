@@ -5,7 +5,7 @@
 replicaCount: 3
 
 image:
-  repository: tomcat
+  repository: nginx
   tag: 0.1
   pullPolicy: IfNotPresent
 

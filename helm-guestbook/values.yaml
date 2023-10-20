@@ -5,7 +5,7 @@
 replicaCount: 3
 
 image:
-  repository: ashokit/mavenwebapp
+  repository: nginx:latest
   tag: 0.1
   pullPolicy: IfNotPresent
 

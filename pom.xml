@@ -53,8 +53,20 @@
         <configuration>
           <reportPlugins>
             <plugin>
-              <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-checkstyle-plugin</artifactId>
+    <version>3.1.1</version>
+    <configuration>
+        <configLocation>checkstyle.xml</configLocation>
+        <failOnViolation>true</failOnViolation>
+        <consoleOutput>true</consoleOutput>
+        <violationSeverity>warning</violationSeverity>
+        <outputFileFormat>xml</outputFileFormat>
+        <outputFile>target/site/checkstyle-result.xml</outputFile> <!-- Check this path -->
+    </configuration>
+    <!-- ... -->
+</plugin>
+
 
             <plugin>
               <artifactId>maven-jxr-plugin</artifactId>

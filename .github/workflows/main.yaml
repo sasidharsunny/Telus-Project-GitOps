@@ -35,18 +35,15 @@ jobs:
        path: surefire-reports # Update the path as per your project setup
 
       
-    - name: Build with Maven
-      run: mvn -B verify checkstyle:checkstyle
-    - uses: jwgmeligmeyling/checkstyle-github-action@master
-      with:
-        path: '**/checkstyle-result.xml'
+    - name: Run Checkstyle
+      run: mvn checkstyle:checkstyle
+      working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
 
     - name: Upload Checkstyle Report
       uses: actions/upload-artifact@v2
       with:
         name: checkstyle-report
-        path: checkstyle.xml # Update the path as per your project setup
-
+        path: target/site/checkstyle-result.xml
 
     # - name: Cache SonarCloud packages
     #   uses: actions/cache@v3

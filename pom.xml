@@ -55,16 +55,22 @@
             <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-checkstyle-plugin</artifactId>
-    <version>3.1.1</version>
+    <version>3.1.1</version> <!-- Use the appropriate version -->
+    <executions>
+        <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+                <goal>check</goal>
+            </goals>
+        </execution>
+    </executions>
     <configuration>
         <configLocation>checkstyle.xml</configLocation>
-        <failOnViolation>true</failOnViolation>
         <consoleOutput>true</consoleOutput>
-        <violationSeverity>warning</violationSeverity>
-        <outputFileFormat>xml</outputFileFormat>
-        <outputFile>target/site/checkstyle-result.xml</outputFile> <!-- Check this path -->
+        <logViolationsToConsole>true</logViolationsToConsole>
+        <failsOnError>true</failsOnError>
     </configuration>
-    <!-- ... -->
 </plugin>
 
 

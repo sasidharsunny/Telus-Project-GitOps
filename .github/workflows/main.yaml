@@ -45,51 +45,51 @@ jobs:
         path: Checkstyle # Update the path as per your project setup
 
 
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
+    # - name: Cache SonarCloud packages
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.sonar/cache
+    #     key: ${{ runner.os }}-sonar
+    #     restore-keys: ${{ runner.os }}-sonar
 
-    - name: Cache Maven packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+    # - name: Cache Maven packages
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: ~/.m2
+    #     key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+    #     restore-keys: ${{ runner.os }}-m2
 
-    - name: Analyze using Sonar Cloud
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sasidharsunny_Telus-App-GitOps
+    # - name: Analyze using Sonar Cloud
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    #   run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sasidharsunny_Telus-App-GitOps
           
-    - name: Upload artifact 
-      uses: actions/upload-artifact@master
-      with:
-        name: artifacts
-        path: /home/runner/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war
+    # - name: Upload artifact 
+    #   uses: actions/upload-artifact@master
+    #   with:
+    #     name: artifacts
+    #     path: /home/runner/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-        aws-region: ap-south-1
+    # - name: Configure AWS credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+    #     aws-region: ap-south-1
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v1
+    # - name: Login to Amazon ECR
+    #   id: login-ecr
+    #   uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build, tag, and push image to Amazon ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: mean-demo
-        IMAGE_TAG: latest
-      run: |
-        docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest -f argocd-cicd-setup/Dockerfile .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    # - name: Build, tag, and push image to Amazon ECR
+    #   env:
+    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+    #     ECR_REPOSITORY: mean-demo
+    #     IMAGE_TAG: latest
+    #   run: |
+    #     docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest -f argocd-cicd-setup/Dockerfile .
+    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       
-    - name: Deployment to EkS using ArgoCd
-      run: " echo Deployed successfully"
+    # - name: Deployment to EkS using ArgoCd
+    #   run: " echo Deployed successfully"

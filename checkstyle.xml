@@ -1,2 +1,13 @@
+<<<<<<< HEAD
 Check
+=======
+Check Style Reports 
+
+the following document contains the results of checkstyle with sum_checks and rules
+
+Summary
+
+Files    info    Warnings   Errors
+ 2         0       2          0
+>>>>>>> e0cd6a05613a0d64eed991b117725628a1a6d8b6
 

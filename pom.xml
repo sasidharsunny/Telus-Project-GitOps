@@ -32,7 +32,7 @@
   </distributionManagement>
 
   <build>
-<reporting>
+
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -104,7 +104,7 @@
         </configuration>
       </plugin>
     </plugins>
-         </reporting>
+         
 
     <pluginManagement>
       <plugins>

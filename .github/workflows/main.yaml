@@ -29,7 +29,7 @@ jobs:
       working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
 
       
-    - name: Generate Checkstyle Report
+    - name: Code Quality analysis using checkstyle
       run: mvn checkstyle:checkstyle
       working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
 

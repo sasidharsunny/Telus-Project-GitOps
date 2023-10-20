@@ -35,8 +35,11 @@ jobs:
        path: surefire-reports # Update the path as per your project setup
 
       
-    - name: 'Code Analysis with Checkstyle'
-      run: mvn checkstyle:checkstyle
+    - name: Build with Maven
+      run: mvn -B verify checkstyle:checkstyle
+    - uses: jwgmeligmeyling/checkstyle-github-action@master
+      with:
+        path: '**/checkstyle-result.xml'
 
     - name: Upload Checkstyle Report
       uses: actions/upload-artifact@v2

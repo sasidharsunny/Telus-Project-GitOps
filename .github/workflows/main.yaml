@@ -28,12 +28,6 @@ jobs:
       run: mvn test
       working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
 
-    - name: Upload JUnit Test Results
-      uses: actions/upload-artifact@v2
-      with:
-       name: junit-test-results
-       path: surefire-reports # Update the path as per your project setup
-
       
     - name: Generate Checkstyle Report
       run: mvn checkstyle:checkstyle

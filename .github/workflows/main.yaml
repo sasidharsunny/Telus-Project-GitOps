@@ -31,6 +31,13 @@ jobs:
     - name: 'Code Analysis with Checkstyle'
       run: mvn checkstyle:checkstyle
 
+    - name: Upload Checkstyle Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: checkstyle-report
+        path: Checkstyle # Update the path as per your project setup
+
+
     - name: Cache SonarCloud packages
       uses: actions/cache@v3
       with:

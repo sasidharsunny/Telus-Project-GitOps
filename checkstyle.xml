@@ -1,10 +1,2 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle version="8.45">
-  <file name="webapp/src/main/webapp/index.jsp">
-    <error line="10" column="1" severity="error" message="Line has trailing spaces." source="com.puppycrawl.tools.checkstyle.checks.whitespace.TrailingWhitespaceCheck"/>
-    <error line="20" column="5" severity="warning" message="Method name 'DoSomething' is not in camel case." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
-    <!-- Additional error entries for this file -->
-  </file>
-  <!-- Additional <file> entries for other source files -->
-</checkstyle>
+Check
 

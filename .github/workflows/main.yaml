@@ -44,7 +44,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: checkstyle-report
-        path: target/site/checkstyle.html
+        path: target/checkstyle-result.xml
+
 
     # - name: Cache SonarCloud packages
     #   uses: actions/cache@v3

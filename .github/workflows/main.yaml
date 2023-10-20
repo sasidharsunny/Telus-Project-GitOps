@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
        name: junit-test-results
-       path: Checkstyle  # Update the path as per your project setup
+       path: surefire-reports # Update the path as per your project setup
 
       
     - name: 'Code Analysis with Checkstyle'

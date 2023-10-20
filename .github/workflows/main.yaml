@@ -42,7 +42,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: checkstyle-report
-        path: Checkstyle # Update the path as per your project setup
+        path: checkstyle.xml # Update the path as per your project setup
 
 
     # - name: Cache SonarCloud packages

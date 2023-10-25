@@ -87,5 +87,4 @@ jobs:
         docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest -f argocd-cicd-setup/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       
-    - name: Deployment to EkS using ArgoCd
-      run: " echo Deployed successfully"
+  

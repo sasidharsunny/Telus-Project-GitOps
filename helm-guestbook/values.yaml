@@ -5,7 +5,7 @@
 replicaCount: 3
 
 image:
-  repository: nginx:latest
+  repository: naveen184/my-app:latest
   tag: 0.1
   pullPolicy: IfNotPresent
 

@@ -1,4 +1,4 @@
-name: Deploy to EKS Cluster
+name: Ci-CD using GitOps
 on:
   workflow_dispatch: 
     inputs: 
@@ -14,6 +14,7 @@ env:
   aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
   aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
   aws-region: ap-south-1
+
 
 jobs:
   CI-CD-using-GitOps:
@@ -31,12 +32,7 @@ jobs:
       run: mvn test
       working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
 
-      
-    - name: Code Quality analysis using checkstyle
-      run: mvn checkstyle:checkstyle
-      working-directory: /home/runner/work/Telus-Project-GitOps/Telus-Project-GitOps
 
-   
     - name: Cache SonarCloud packages
       uses: actions/cache@v3
       with:
@@ -57,11 +53,26 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sasidharsunny_Telus-App-GitOps
           
-    - name: Upload artifact 
-      uses: actions/upload-artifact@master
+    - name: List generated WAR files
+      run: ls -l /home/runner/.m2/repository/org/kth/github-action-maven-tutorial/1.0-SNAPSHOT/github-action-maven-tutorial-1.0-SNAPSHOT.jar
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v1
       with:
-        name: artifacts
-        path: /home/runner/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war
+        jfrog-cli-version: 'latest'
+        artifactory-url: 'http://18.204.209.62:8081/'
+      env:
+        JFROG_CLI_HOME: /usr/local/bin
+
+    - name: Build and Publish
+      run: |
+        # Build your application or package
+        # Configure JFrog CLI with your Artifactory details using the new syntax
+        jfrog config add MyArtifactory --artifactory-url=http://18.204.209.62:8081/ --access-token=$JFROG_API_KEY
+        # Publish the artifact to JFrog Artifactory
+        jfrog rt u "/home/runner/.m2/repository/org/kth/github-action-maven-tutorial/1.0-SNAPSHOT/github-action-maven-tutorial-1.0-SNAPSHOT.jar" "MyArtifactory/maven-artifact/my-app/*.jar"
+      env:
+        JFROG_API_KEY: ${{ secrets.JFROG_API_KEY }}
+
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -82,5 +93,45 @@ jobs:
       run: |
         docker build -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:latest -f argocd-cicd-setup/Dockerfile .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    
+    - name: Deployment To ArgoCD
+      uses: actions/checkout@v3
+      with:
+          repository: sasidharsunny/Telus-app
+          ref: 'main'
+          token: ${{ secrets.G_TOKEN }}
+
+    - name: Update Replicas
+      run: |
+        # Modify the deployment.yaml file to set the desired number of replicas
+        sed -i 's/replicas: [0-9]*/replicas: 4/' Deployment/Deployment.yaml
+
+        # Commit the changes
+        git config --global user.email "sasidharsunny94@gmail.com"
+        git config --global user.name "sasidharsunny"
+        git add .
+        git commit -m "Update replicas to 4"
+        git push origin main  # Update the branch name as needed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       
   
